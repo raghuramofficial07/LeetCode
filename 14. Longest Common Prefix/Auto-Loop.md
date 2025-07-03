@@ -1,3 +1,7 @@
+<!-- GitHub Project Banner -->
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/501c98ee-809c-4376-b32d-6d38ae07c489" alt="Project Banner" width="100%">
+</p>
 # C++ Range-Based For Loop Example
 
 This README explains how the following C++ loop works **under the hood**:
