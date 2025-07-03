@@ -76,6 +76,21 @@ Grouping items by common prefixes in sorted datasets.
 | Space Complexity | O(1)                                          |
 | Language         | C++                                           |
 
+**Working** 
+
+| Outer i | c = word[i] | s (current string) | s[i] | s[i] == c? | Action                                  |
+|---------|-------------|---------------------|------|------------|-----------------------------------------|
+| 0       | 'f'         | "flower"            | 'f'  | Yes        | continue inner loop                    |
+| 0       | 'f'         | "flow"              | 'f'  | Yes        | continue inner loop                    |
+| 0       | 'f'         | "flight"            | 'f'  | Yes        | inner loop ends, ++i                   |
+| 1       | 'l'         | "flower"            | 'l'  | Yes        | continue inner loop                    |
+| 1       | 'l'         | "flow"              | 'l'  | Yes        | continue inner loop                    |
+| 1       | 'l'         | "flight"            | 'l'  | Yes        | inner loop ends, ++i                   |
+| 2       | 'o'         | "flower"            | 'o'  | Yes        | continue inner loop                    |
+| 2       | 'o'         | "flow"              | 'o'  | Yes        | continue inner loop                    |
+| 2       | 'o'         | "flight"            | 'i'  | No         | return "fl" (word.substr(0,2))         |
+
+
 » Author Footer
 
 Crafted and documented by RR
