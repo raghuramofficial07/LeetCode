@@ -5,6 +5,7 @@
   <img src="https://github.com/user-attachments/assets/501c98ee-809c-4376-b32d-6d38ae07c489" alt="Project Banner" width="100%">
 </p>
 
+![Difficulty: Medium](https://img.shields.io/badge/Difficulty-Medium-orange?style=flat)
 ---
 
 ## » Table of Contents
