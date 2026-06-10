@@ -163,6 +163,39 @@ public:
 
 -----
 
+### Swift
+
+```swift
+class Solution {
+    func reverse(_ x: Int) -> Int {
+        let INT_MAX = Int(Int32.max)  // 2147483647
+        let INT_MIN = Int(Int32.min)  // -2147483648
+
+        var result = 0
+        var x = x
+
+        while x != 0 {
+            let digit = x % 10  // preserves sign in Swift
+            x /= 10
+
+            // Overflow check before pushing
+            if result > INT_MAX / 10 ||
+              (result == INT_MAX / 10 && digit > 7) { return 0 }
+            if result < INT_MIN / 10 ||
+              (result == INT_MIN / 10 && digit < -8) { return 0 }
+
+            result = result * 10 + digit
+        }
+
+        return result
+    }
+}
+```
+
+> 💡 Swift uses `Int` (64-bit on 64-bit platforms), so we manually clamp to `Int32` bounds using `Int32.max` and `Int32.min`. Swift also has built-in overflow operators (`&+`, `&*`) but we avoid them here for explicit control.
+
+-----
+
 ## Approach 2 — String Reversal
 
 **Strategy:** Convert to string, reverse it, parse back to integer, then check range.
@@ -250,6 +283,27 @@ public:
 
 -----
 
+### Swift
+
+```swift
+class Solution {
+    func reverse(_ x: Int) -> Int {
+        let negative = x < 0
+        let reversed = String(String(abs(x)).reversed())
+
+        guard let result = Int(reversed) else { return 0 }
+        let signed = negative ? -result : result
+
+        if signed > Int(Int32.max) || signed < Int(Int32.min) { return 0 }
+        return signed
+    }
+}
+```
+
+> 💡 Swift’s `String.reversed()` returns a `ReversedCollection` — wrap it in `String()` to get a usable string. `Int()` initializer returns `nil` on overflow, making it a clean way to detect it.
+
+-----
+
 ## Approach 3 — Recursive Digit Extraction
 
 **Strategy:** Use recursion to peel off digits. More of an academic/interview variant.
@@ -296,6 +350,29 @@ class Solution {
     }
 }
 ```
+
+-----
+
+### Swift
+
+```swift
+class Solution {
+    private func helper(_ n: Int, _ rev: Int) -> Int {
+        if n == 0 { return rev }
+        return helper(n / 10, rev * 10 + n % 10)
+    }
+
+    func reverse(_ x: Int) -> Int {
+        let negative = x < 0
+        let result = helper(abs(x), 0) * (negative ? -1 : 1)
+
+        if result > Int(Int32.max) || result < Int(Int32.min) { return 0 }
+        return result
+    }
+}
+```
+
+> 💡 Swift’s recursion is clean and readable. Since `Int` is 64-bit, the overflow check at the end is safe and simple.
 
 -----
 
